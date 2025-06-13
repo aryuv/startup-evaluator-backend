@@ -19,7 +19,6 @@ def evaluate_idea():
     idea_text = data["idea"]
 
     try:
-        # Call OpenAI API to get evaluation (you can customize prompt)
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -36,7 +35,3 @@ def evaluate_idea():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
