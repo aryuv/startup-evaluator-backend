@@ -1,13 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import openai
-import os
+from openai import OpenAI
 
 app = Flask(__name__)
-CORS(app)  # Allow cross-origin requests
+CORS(app)
 
-# Set your OpenAI API key as environment variable before running
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI()  # reads OPENAI_API_KEY from environment
 
 @app.route("/evaluate", methods=["POST"])
 def evaluate_idea():
@@ -19,7 +17,7 @@ def evaluate_idea():
     idea_text = data["idea"]
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a startup evaluator."},
@@ -35,3 +33,7 @@ def evaluate_idea():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
