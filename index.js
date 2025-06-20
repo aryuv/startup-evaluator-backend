@@ -23,7 +23,12 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://validea-sigma.vercel.app/", // 🔁 replace with your actual frontend domain
+  methods: ["POST"],
+  allowedHeaders: ["Content-Type"]
+}));
+
 app.use(express.json());
 
 const limiter = rateLimit({
@@ -35,6 +40,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
 
 // Initialize OpenAI with GPT-3.5
 const openai = new OpenAI({
@@ -138,6 +144,7 @@ Team: ${team.trim()}
       messages: [{ role: 'user', content: prompt }],
     });
 
+  
     const raw = response.choices?.[0]?.message?.content?.trim();
     let evaluation;
 
