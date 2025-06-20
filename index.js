@@ -23,11 +23,17 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-app.use(cors({
-  origin: "https://validea-sigma.vercel.app/", // 🔁 replace with your actual frontend domain
-  methods: ["POST"],
-  allowedHeaders: ["Content-Type"]
-}));
+const corsOptions = {
+  origin: "https://validea-sigma.vercel.app", // remove trailing slash
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+  optionsSuccessStatus: 204, // some legacy browsers (IE11, various Smart TVs) choke without this
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight OPTIONS requests
+app.options("*", cors(corsOptions));
 
 app.use(express.json());
 
