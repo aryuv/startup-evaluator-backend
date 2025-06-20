@@ -22,20 +22,33 @@ function sanitizeInput(text) {
 const app = express();
 
 // Middleware
-// Request logging middleware
+// Request logging middleware — keep it first so all requests are logged
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
 const corsOptions = {
-  origin: "https://validea-sigma.vercel.app", // remove trailing slash
+  origin: "https://validea-sigma.vercel.app", // exact origin of your frontend
   methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
-  optionsSuccessStatus: 204, // some legacy browsers (IE11, various Smart TVs) choke without this
+  allowedHeaders: ["Content-Type", "Authorization"], // add headers you expect from frontend
+  optionsSuccessStatus: 204, // for legacy browsers
+  credentials: true, // if your frontend sends cookies or auth headers (optional)
 };
 
+// Enable CORS with the above options for all routes
 app.use(cors(corsOptions));
+
+// Handle preflight OPTIONS requests for all routes explicitly
+app.options("*", cors(corsOptions));
+
+// Parse JSON body after CORS middleware
+app.use(express.json());
+
+// Put rate limiting and other middlewares after CORS and body parser
+app.use(limiter);
+
+// Your routes come after all middleware
 
 // Handle preflight OPTIONS requests
 app.options("*", cors(corsOptions));
