@@ -45,9 +45,6 @@ app.options("*", cors(corsOptions));
 // Parse JSON body after CORS middleware
 app.use(express.json());
 
-// Put rate limiting and other middlewares after CORS and body parser
-app.use(limiter);
-
 // Your routes come after all middleware
 
 // Handle preflight OPTIONS requests
