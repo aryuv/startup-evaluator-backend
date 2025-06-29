@@ -28,7 +28,6 @@ By quantifying signals like:
 | Layer | Tech |
 |-------|------|
 | Frontend | React.js (with styled-components & Tailwind for UI polish) |
-| Backend (Scoring Logic) | Python (Flask) |
 | Backend (Data Handling / APIs) | Node.js |
 | Hosting | Render (Frontend) + Railway (APIs) |
 
