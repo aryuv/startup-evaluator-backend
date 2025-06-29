@@ -2,7 +2,7 @@
 
 A decision-support tool that helps investors and founders quickly evaluate the viability of early-stage startup ideas.
 
-> 🔍 Scoring logic powered by a hybrid backend: Python (Flask) + Node.js  
+> 🔍 Scoring logic powered by a Node.js backend
 > 🧠 Designed to simulate a structured investor thought process
 
 ---
@@ -31,14 +31,6 @@ By quantifying signals like:
 | Backend (Scoring Logic) | Python (Flask) |
 | Backend (Data Handling / APIs) | Node.js |
 | Hosting | Render (Frontend) + Railway (APIs) |
-
----
-
-### 📸 Screenshots
-
-| Home | Evaluation Result |
-|------|-------------------|
-| ![Home](./assets/home.png) | ![Result](./assets/result.png) |
 
 ---
 
